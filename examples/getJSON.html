@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>wangEditor example</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <p>
+        wangEditor getJSON
+    </p>
+    <div id="div1">
+
+    </div>
+
+    <button onclick="setJsonOne()">setJSON</button>
+    <button onclick="setJsonTwo()">setJSON（自定义 JSON）</button>
+    <button onclick="getJson()">getJSON</button>
+    <button onclick="setTable()">setJSON Table</button>
+    <button onclick="getHtml()">getHtml</button>
+    <button onclick="setHtml()">setHtml</button>
+
+    <script src="../dist/wangEditor.js"></script>
+    <script src="./fck_format.js"></script>
+    <script>
+        const E = window.wangEditor
+        const editor = new E('#div1')
+        editor.config.uploadImgServer = 'http://106.12.198.214:3000/api/upload-img'
+        editor.config.showLinkImgAlt = true
+        editor.config.showLinkImgHref = true
+        editor.config.height = 700
+        editor.config.onchange = function(newHtml) {
+            console.log('onchange', newHtml)
+        }
+        editor.create()
+
+        console.log(editor.txt.getJSON())
+        let myJson = editor.txt.getJSON()
+        let myHtml = editor.txt.html()
+
+        function getJson() {
+            myJson = editor.txt.getJSON()
+            console.log(myJson, JSON.stringify(myJson))
+        }
+
+        function setJsonOne() {
+            console.log(myJson)
+            editor.txt.setJSON(myJson)
+        }
+
+        function setJsonTwo() {
+            editor.txt.setJSON([{
+                "tag": "p",
+                "attrs": [],
+                "children": [
+                    "欢迎使用 ", {
+                        "tag": "b",
+                        "attrs": [],
+                        "children": ["wangEditor"]
+                    },
+                    " 富文本编辑器"
+                ]
+            }, {
+                "tag": "p",
+                "attrs": [],
+                "children": [{
+                    "tag": "img",
+                    "attrs": [{
+                        "name": "src",
+                        "value": "xxx.png"
+                    }, {
+                        "name": "style",
+                        "value": "max-width:100%;"
+                    }],
+                    "children": []
+                }]
+            }])
+        }
+
+        function setTable() {
+            let tableJson = [{
+                "tag": "p",
+                "attrs": [],
+                "children": ["setJSON表格设置成功"]
+            }, {
+                "tag": "table",
+                "attrs": [{
+                    "name": "border",
+                    "value": "0"
+                }, {
+                    "name": "width",
+                    "value": "100%"
+                }, {
+                    "name": "cellpadding",
+                    "value": "0"
+                }, {
+                    "name": "cellspacing",
+                    "value": "0"
+                }],
+                "children": [{
+                    "tag": "tbody",
+                    "attrs": [],
+                    "children": [{
+                        "tag": "tr",
+                        "attrs": [],
+                        "children": [{
+                            "tag": "th",
+                            "attrs": [],
+                            "children": ["1"]
+                        }, {
+                            "tag": "th",
+                            "attrs": [],
+                            "children": ["2"]
+                        }]
+                    }, {
+                        "tag": "tr",
+                        "attrs": [],
+                        "children": [{
+                            "tag": "td",
+                            "attrs": [],
+                            "children": ["3"]
+                        }, {
+                            "tag": "td",
+                            "attrs": [],
+                            "children": ["2"]
+                        }]
+                    }]
+                }]
+            }, {
+                "tag": "p",
+                "attrs": [],
+                "children": [{
+                    "tag": "br",
+                    "attrs": [],
+                    "children": []
+                }]
+            }]
+            editor.txt.setJSON(tableJson)
+        }
+
+        function getHtml() {
+            myHtml = editor.txt.html()
+            console.log(' editor.txt.html() ', myHtml);
+            myHtml = doFormatText(myHtml)
+            console.log('myHtml: doFormatText', myHtml);
+        }
+
+        function setHtml() {
+            console.log('editor: ', editor);
+
+            console.log('editor: ', editor.$textElem.elems[0].setAttribute('style', 'text-indent: 2em'));
+
+            console.log('myHtml: ', myHtml);
+            let html = myHtml;
+            console.log('html: setHtml', html);
+
+            editor.txt.html(html)
+
+
+        }
+    </script>
+</body>
+
+</html>
