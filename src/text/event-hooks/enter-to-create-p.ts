@@ -26,6 +26,12 @@ function enterToCreateP(editor: Editor, enterUpEvents: Function[], enterDownEven
     $p.insertBefore($selectionElem)
     if ($selectionElem.html().indexOf('<img') >= 0) {
       $p.remove();
+      $selectionElem.find('br').forEach((item) => {
+        item.remove();
+      });
+      $p.insertAfter($selectionElem);
+      editor.selection.createRangeByElem($p, true, true);
+      editor.selection.restoreSelection();
       // 有图片的回车键弹起时
       return
     }
