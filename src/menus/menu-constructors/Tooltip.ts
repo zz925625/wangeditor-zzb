@@ -131,6 +131,7 @@ class Tooltip {
     const $container = this.$container
 
     conf.forEach((item: TooltipConfItemType, index: number) => {
+      console.log('item: ', item);
       // 添加元素
       const $elem = item.$elem
       const $input = item.$input
@@ -147,7 +148,7 @@ class Tooltip {
       $container.append($wrapper)
       // 绑定点击事件
       $elem.on('click', (e: Event) => {
-        // console.log('click');
+        console.log('click  $elem');
         e.preventDefault()
         const res = item.onClick?.(editor, $targetElem)
         console.log('res: ', res);
@@ -186,9 +187,11 @@ class Tooltip {
     }
 
     this._show = true
+    console.log('this._show: ', this._show);
 
     editor.beforeDestroy(this.remove.bind(this))
-    editor.txt.eventHooks.onBlurEvents.push(this.remove.bind(this))
+
+    // editor.txt.eventHooks.onBlurEvents.push(this.remove.bind(this))
   }
 
   /**

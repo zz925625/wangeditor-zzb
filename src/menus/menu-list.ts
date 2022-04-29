@@ -17,6 +17,7 @@ import BackColor from './back-color/index'
 import FontColor from './font-color/index'
 import Video from './video/index'
 import Image from './img/index'
+import Image2 from './img copy/index'
 // import Indent from './indent/index'
 import Indent2 from './indent copy/index'
 import Emoticon from './emoticon/index'
@@ -30,33 +31,34 @@ import SplitLine from './split-line/index'
 import Todo from './todo'
 
 export type MenuListType = {
-    [key: string]: any
+  [key: string]: any
 }
 
 export default {
-    bold: Bold,
-    head: Head,
-    italic: Italic,
-    link: Link,
-    underline: Underline,
-    strikeThrough: StrikeThrough,
-    fontName: FontStyle,
-    fontSize: FontSize,
-    justify: Justify,
-    quote: Quote,
-    backColor: BackColor,
-    foreColor: FontColor,
-    video: Video,
-    image: Image,
-    // indent: Indent,
-    indent2: Indent2,
-    emoticon: Emoticon,
-    list: List,
-    lineHeight: LineHeight,
-    undo: Undo,
-    redo: Redo,
-    table: Table,
-    code: Code,
-    splitLine: SplitLine,
-    todo: Todo,
+  bold: Bold,
+  head: Head,
+  italic: Italic,
+  link: Link,
+  underline: Underline,
+  strikeThrough: StrikeThrough,
+  fontName: FontStyle,
+  fontSize: FontSize,
+  justify: Justify,
+  quote: Quote,
+  backColor: BackColor,
+  foreColor: FontColor,
+  video: Video,
+  image: Image,
+  image2: Image2,
+  // indent: Indent,
+  indent2: Indent2,
+  emoticon: Emoticon,
+  list: List,
+  lineHeight: LineHeight,
+  undo: Undo,
+  redo: Redo,
+  table: Table,
+  code: Code,
+  splitLine: SplitLine,
+  todo: Todo,
 }

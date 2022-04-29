@@ -6,7 +6,8 @@
 import $, { DomElement } from '../../../utils/dom-core'
 import Tooltip, { TooltipConfType } from '../../menu-constructors/Tooltip'
 import Editor from '../../../editor/index'
-
+// import { getRandom } from '../../../util/utils'
+import { getRandom } from '../../../utils/util'
 /**
  * 生成 Tooltip 的显示隐藏函数
  */
@@ -21,6 +22,11 @@ export function createShowHideFn(editor: Editor) {
    * @param $node 链接元素
    */
   function showImgTooltip($node: DomElement) {
+
+    const widthId = getRandom('w-width-id')
+    const heightId = getRandom('w-height-id')
+    const insertBtnId = getRandom('btn-link')
+
     const conf: TooltipConfType = [
       {
         $elem: $("<span class='w-e-icon-trash-o'></span>"),
@@ -33,36 +39,66 @@ export function createShowHideFn(editor: Editor) {
           return true
         },
       },
+      // 新增 输入框处理 图片大小
       {
-        $elem: $('<span>30%</span>'),
+        $elem: $(`<button type="button" id="${insertBtnId}" class="right">${t('确定')}</button>
+                   `),
+        $input: $(`<div class="w-e-table">
+                        <span>宽</span>
+                        <input id="${widthId}"  type="text" class="w-e-tooltip-input" value=""/></td>
+                        <span>高</span>
+                        <input id="${heightId}" type="text" class="w-e-tooltip-input" value=""/></td>
+                    </div>
+               `),
         onClick: (editor: Editor, $node: DomElement) => {
-          $node.attr('width', '30%')
-          $node.removeAttr('height')
+          const widthValue = Number($('#' + widthId).val())
+          console.log('widthValue: ', widthValue);
+          const heighValue = Number($('#' + heightId).val())
+          console.log('heighValue: ', heighValue);
+          console.log('$node: ', $node);
+          if (widthValue) {
+            $node.attr('width', widthValue + 'px');
+            !heighValue && $node.removeAttr('height')
+          }
+          if (heighValue) {
+            $node.attr('height', heighValue + 'px');
+            !widthValue && $node.removeAttr('width')
+          }
+
 
           // 返回 true，表示执行完之后，隐藏 tooltip。否则不隐藏。
           return true
         },
       },
-      {
-        $elem: $('<span>50%</span>'),
-        onClick: (editor: Editor, $node: DomElement) => {
-          $node.attr('width', '50%')
-          $node.removeAttr('height')
+      // {
+      //   $elem: $('<span>30%</span>'),
+      //   onClick: (editor: Editor, $node: DomElement) => {
+      //     $node.attr('width', '30%')
+      //     $node.removeAttr('height')
+      //     // 返回 true，表示执行完之后，隐藏 tooltip。否则不隐藏。
+      //     return true
+      //   },
+      // },
+      // {
+      //   $elem: $('<span>50%</span>'),
+      //   onClick: (editor: Editor, $node: DomElement) => {
+      //     $node.attr('width', '50%')
+      //     $node.removeAttr('height')
 
-          // 返回 true，表示执行完之后，隐藏 tooltip。否则不隐藏。
-          return true
-        },
-      },
-      {
-        $elem: $('<span>100%</span>'),
-        onClick: (editor: Editor, $node: DomElement) => {
-          $node.attr('width', '100%')
-          $node.removeAttr('height')
+      //     // 返回 true，表示执行完之后，隐藏 tooltip。否则不隐藏。
+      //     return true
+      //   },
+      // },
+      // {
+      //   $elem: $('<span>100%</span>'),
+      //   onClick: (editor: Editor, $node: DomElement) => {
+      //     $node.attr('width', '100%')
+      //     $node.removeAttr('height')
 
-          // 返回 true，表示执行完之后，隐藏 tooltip。否则不隐藏。
-          return true
-        },
-      },
+      //     // 返回 true，表示执行完之后，隐藏 tooltip。否则不隐藏。
+      //     return true
+      //   },
+      // },
     ]
 
     conf.push({
@@ -100,6 +136,7 @@ export function createShowHideFn(editor: Editor) {
    */
   function hideImgTooltip() {
     console.log('tooltip:   hideImgTooltip',);
+
     // 移除 tooltip
     if (tooltip) {
       tooltip.remove()
@@ -130,6 +167,8 @@ export default function bindTooltipEvent(editor: Editor) {
   editor.txt.eventHooks.menuClickEvents.push(hideImgTooltip)
   editor.txt.eventHooks.textScrollEvents.push(hideImgTooltip)
   editor.txt.eventHooks.imgDragBarMouseDownEvents.push(hideImgTooltip)
+  //失焦时， 光标在输入框时，不能隐藏
+  // editor.txt.eventHooks.onBlurEvents.push(hideImgTooltip)
 
   // change 时隐藏
   editor.txt.eventHooks.changeEvents.push(hideImgTooltip)

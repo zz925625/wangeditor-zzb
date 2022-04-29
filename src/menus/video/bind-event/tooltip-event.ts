@@ -71,9 +71,9 @@ export function createShowHideFn(editor: Editor) {
                    `),
         $input: $(`<div class="w-e-table">
                         <span>宽</span>
-                        <input id="${widthId}"  type="text" class="w-e-table-input" value=""/></td>
+                        <input id="${widthId}"  type="text" class="w-e-tooltip-input" value=""/></td>
                         <span>高</span>
-                        <input id="${heightId}" type="text" class="w-e-table-input" value=""/></td>
+                        <input id="${heightId}" type="text" class="w-e-tooltip-input" value=""/></td>
                     </div>
                `),
         onClick: (editor: Editor, $node: DomElement) => {

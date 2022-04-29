@@ -168,6 +168,12 @@ export class DomElement<T extends DomElementSelector = DomElementSelector> {
     this.length = length
   }
 
+  clicka(): string {
+
+    return '1'
+  }
+
+
   /**
    * 获取元素 id
    */
